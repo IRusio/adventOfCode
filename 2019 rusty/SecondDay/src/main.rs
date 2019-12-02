@@ -1,15 +1,15 @@
 use std::fs;
 
-fn get_calculation(mut data: Vec<u64>) -> u64{
+fn get_calculation(mut data: Vec<usize>) -> usize{
     for i in (0 .. data.len()).step_by(4) {
         match data[i] {
             1 => {
-                let field : usize = data[i+3] as usize;
-                data[field as usize] = data[data[i+1] as usize] + data[data[i+2] as usize];
+                let field : usize = data[i+3];
+                data[field] = data[data[i+1]] + data[data[i+2]];
             }
             2 => {
-                let field : usize = data[i+3] as usize;
-                data[field] = data[data[i+1] as usize] * data[data[i+2] as usize];
+                let field : usize = data[i+3];
+                data[field] = data[data[i+1]] * data[data[i+2]];
             }
             99 => {
                 break;
@@ -29,13 +29,13 @@ fn main() {
 
     let split_content = contents.lines().next().unwrap().split(',');
 
-    let mut data : Vec<u64> = split_content.map(|s| s.parse().unwrap()).collect();
+    let mut data : Vec<usize> = split_content.map(|s| s.parse().unwrap()).collect();
 
     data[1] = 12;
     data[2] = 2;
     println!("{}",get_calculation(data.clone()));
 
-    let correct_value : u64 = 19690720;
+    let correct_value : usize = 19690720;
     for i in 0..99 {
         for j in 0..99{
             data[1] = i;
